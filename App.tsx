@@ -29,33 +29,77 @@ export default function App() {
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="light-content" backgroundColor="#003B2F" />
       
-      {/* 1. EDGE-TO-EDGE NAVIGATION */}
+      {/* 1. EXTREME EDGE-TO-EDGE NAVIGATION (White Theme) */}
       <View style={styles.navBar}>
-        <View style={[styles.navInner, { width: contentWidth }]}>
+        {/* Notice we removed { width: contentWidth } to allow 100% width */}
+        <View style={styles.navInnerFull}>
+          
+          {/* LOGO (Pushed extreme left) */}
           <View style={styles.logoGroup}>
-            <View style={styles.logoBadge}>
-              <MaterialCommunityIcons name="moon-waning-crescent" size={24} color="#D4AF37" />
+            <View style={styles.logoBadgeWhite}>
+              <MaterialCommunityIcons name="mosque" size={30} color="#166534" />
             </View>
             <View>
-              <Text style={styles.navTitle}>NOOR UL ISLAM</Text>
-              <Text style={styles.navSubtitle}>Islamic Center of Windsor</Text>
+              <Text style={styles.navTitleDark}>Noor Ul Islam</Text>
+              <Text style={styles.navSubtitleDark}>Windsor</Text>
             </View>
           </View>
+
+          {/* CENTER MENU (Desktop Only - Dead center) */}
           {isDesktop && (
-            <View style={styles.desktopMenu}>
-              <Text style={styles.menuItem}>Home</Text>
-              <Text style={styles.menuItem}>About Us</Text>
-              <Text style={styles.menuItem}>Programs</Text>
-              <Text style={styles.menuItem}>Services</Text>
-              <TouchableOpacity style={styles.navButton}>
-                <Text style={styles.navButtonText}>Donate</Text>
+            <View style={styles.centerMenu}>
+              <Text style={styles.menuItemDark}>Home</Text>
+              <Text style={styles.menuItemDark}>About</Text>
+              <View style={styles.menuItemWithIcon}>
+                <Text style={styles.menuItemDark}>Programs</Text>
+                <MaterialCommunityIcons name="chevron-down" size={16} color="#0F172A" />
+              </View>
+              <View style={styles.menuItemWithIcon}>
+                <Text style={styles.menuItemDark}>Services</Text>
+                <MaterialCommunityIcons name="chevron-down" size={16} color="#0F172A" />
+              </View>
+              <View style={styles.menuItemWithIcon}>
+                <Text style={styles.menuItemDark}>Events</Text>
+                <MaterialCommunityIcons name="chevron-down" size={16} color="#0F172A" />
+              </View>
+              <Text style={styles.menuItemDark}>Blog</Text>
+              <View style={styles.menuItemWithIcon}>
+                <Text style={styles.menuItemDark}>Donate</Text>
+                <MaterialCommunityIcons name="chevron-down" size={16} color="#0F172A" />
+              </View>
+              <Text style={styles.menuItemDark}>Contact</Text>
+            </View>
+          )}
+
+          {/* RIGHT ACTION BUTTONS (Desktop Only - Pushed extreme right) */}
+          {isDesktop && (
+            <View style={styles.actionButtonGroup}>
+              <TouchableOpacity style={styles.outlineBtn}>
+                <MaterialCommunityIcons name="youtube" size={18} color="#DC2626" />
+                <Text style={styles.outlineBtnTxt}>Watch Live</Text>
+              </TouchableOpacity>
+              
+              <TouchableOpacity style={styles.outlineBtn}>
+                <MaterialCommunityIcons name="whatsapp" size={18} color="#16A34A" />
+                <Text style={styles.outlineBtnTxt}>Join WhatsApp</Text>
+              </TouchableOpacity>
+              
+              <TouchableOpacity style={styles.outlineBtn}>
+                <MaterialCommunityIcons name="book-open-page-variant" size={18} color="#166534" />
+                <Text style={styles.outlineBtnTxt}>Online Quran</Text>
+              </TouchableOpacity>
+              
+              <TouchableOpacity style={styles.solidGoldBtn}>
+                <MaterialCommunityIcons name="heart" size={16} color="#000000" />
+                <Text style={styles.solidGoldBtnTxt}>Donate</Text>
               </TouchableOpacity>
             </View>
           )}
-          {!isDesktop && <Ionicons name="menu" size={32} color="#FFFFFF" />}
+
+          {/* MOBILE MENU ICON */}
+          {!isDesktop && <Ionicons name="menu" size={32} color="#0F172A" />}
         </View>
       </View>
-
       {/* 2. FULL WIDTH MARQUEE */}
       <MarqueeBanner 
         message="🌙 MOON SIGHTING UPDATE: The crescent for Rabi' al-Thani was sighted. The new month has officially begun. Join us for weekly Ta'leem." 
@@ -69,21 +113,19 @@ export default function App() {
           source={{ uri: 'https://images.unsplash.com/photo-1519817914152-2a640101b0da?q=80&w=2000&auto=format&fit=crop' }} 
           style={styles.heroContainer}
         >
-          <View style={styles.heroOverlay}>
-            <View style={[styles.heroContent, { width: contentWidth }]}>
-              <Text style={styles.heroWelcome}>Bismillah ir-Rahman ir-Rahim</Text>
-              <Text style={styles.heroHeading}>Welcome to Your Spiritual Home.</Text>
-              <Text style={styles.heroSubHeading}>Fostering faith, education, and community brotherhood in the heart of Windsor.</Text>
-              <View style={styles.heroActionGroup}>
-                <TouchableOpacity style={styles.primaryHeroBtn}>
-                  <Text style={styles.primaryHeroBtnTxt}>View Prayer Times</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.secondaryHeroBtn}>
-                  <Text style={styles.secondaryHeroBtnTxt}>Latest Announcements</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
+<View style={[styles.heroContent, { width: contentWidth }]}>
+  <Text style={styles.heroWelcome}>Bismillah ir-Rahman ir-Rahim</Text>
+  <Text style={styles.heroHeading}>Welcome to Noor ul Islam.</Text>
+  <Text style={styles.heroSubHeading}>Sharing authentic Islamic knowledge, timely moon sighting updates, and nurturing the next generation through our dedicated Maktab.</Text>
+  <View style={styles.heroActionGroup}>
+    <TouchableOpacity style={styles.primaryHeroBtn}>
+      <Text style={styles.primaryHeroBtnTxt}>View Prayer Times</Text>
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.secondaryHeroBtn}>
+      <Text style={styles.secondaryHeroBtnTxt}>Enroll in Maktab</Text>
+    </TouchableOpacity>
+  </View>
+</View>
         </ImageBackground>
 
         {/* 4. MAIN CONTENT SECTION (White Background) */}
@@ -170,21 +212,23 @@ export default function App() {
         </View>
 
         {/* 6. PROGRAMS SECTION (Light Gray Background) */}
-        <View style={styles.sectionGray}>
-          <View style={[styles.sectionInner, { width: contentWidth }]}>
-            <View style={styles.sectionHeaderCenter}>
-              <Text style={styles.sectionTitle}>Community Programs</Text>
-              <Text style={styles.sectionSubtitle}>Engaging all ages in education and brotherhood.</Text>
-            </View>
-            
-            <View style={[styles.programsGrid, isDesktop && styles.programsGridDesktop]}>
-              <ProgramCard title="Maktab Program" desc="Daily Quran & Islamic basics for children." icon="school" />
-              <ProgramCard title="Youth Circle" desc="Mentorship, discussions, and sports." icon="basketball" />
-              <ProgramCard title="Friday Ta'leem" desc="Ahadeeth readings post-Salah." icon="book-reader" />
-              <ProgramCard title="Family Care" desc="Counseling and community support." icon="hands-helping" />
-            </View>
-          </View>
-        </View>
+<View style={[styles.programsGrid, isDesktop && styles.programsGridDesktop]}>
+  <ProgramCard 
+    title="Noor ul Islam Maktab" 
+    desc="Our flagship daily program teaching children Quran recitation, Tajweed, and foundational Islamic character." 
+    icon="school" 
+  />
+  <ProgramCard 
+    title="Moon Sighting & Islamic Dates" 
+    desc="Official, verified local moon sighting updates for Ramadan, Eid, and the start of every Islamic month." 
+    icon="moon" 
+  />
+  <ProgramCard 
+    title="Islamic Knowledge Hub" 
+    desc="Daily spiritual nourishment featuring carefully selected Ayats from the Quran and authentic Ahadith." 
+    icon="book-open" 
+  />
+</View>
 
         {/* 7. FULL WIDTH FOOTER */}
         <View style={styles.footer}>
@@ -252,18 +296,25 @@ const MarqueeBanner = ({ message, screenWidth }: { message: string, screenWidth:
 const styles = StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: '#003B2F' },
   
-  // NAV BAR
-  navBar: { backgroundColor: '#003B2F', width: '100%', alignItems: 'center', zIndex: 100, ...Platform.select({ web: { position: 'sticky', top: 0 } }) },
-  navInner: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 16, paddingHorizontal: 20 },
-  logoGroup: { flexDirection: 'row', alignItems: 'center' },
-  logoBadge: { width: 44, height: 44, borderRadius: 22, backgroundColor: 'rgba(212, 175, 55, 0.1)', justifyContent: 'center', alignItems: 'center', marginRight: 15, borderWidth: 1, borderColor: '#D4AF37' },
-  navTitle: { color: '#FFFFFF', fontSize: 20, fontWeight: '800', letterSpacing: 1 },
-  navSubtitle: { color: '#D4AF37', fontSize: 13, fontWeight: '500', textTransform: 'uppercase', letterSpacing: 0.5 },
-  desktopMenu: { flexDirection: 'row', alignItems: 'center' },
-  menuItem: { color: '#FFFFFF', fontSize: 15, fontWeight: '600', marginLeft: 30, cursor: 'pointer' as any },
-  navButton: { backgroundColor: '#D4AF37', paddingHorizontal: 24, paddingVertical: 10, borderRadius: 6, marginLeft: 30 },
-  navButtonText: { color: '#003B2F', fontSize: 15, fontWeight: 'bold' },
-
+// NAV BAR (Extreme Edge-to-Edge)
+  navBar: { backgroundColor: '#FFFFFF', width: '100%', zIndex: 100, borderBottomWidth: 1, borderBottomColor: '#E2E8F0', ...Platform.select({ web: { position: 'sticky', top: 0 } }) },
+  navInnerFull: { width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 12, paddingHorizontal: 30 },
+  
+  logoGroup: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' },
+  logoBadgeWhite: { justifyContent: 'center', alignItems: 'center', marginRight: 10 },
+  navTitleDark: { color: '#0F172A', fontSize: 16, fontWeight: '800' },
+  navSubtitleDark: { color: '#166534', fontSize: 11, fontWeight: '600', textTransform: 'uppercase' },
+  
+  centerMenu: { flex: 2, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
+  menuItemDark: { color: '#0F172A', fontSize: 15, fontWeight: '600', marginHorizontal: 12, cursor: 'pointer' as any },
+  menuItemWithIcon: { flexDirection: 'row', alignItems: 'center', marginHorizontal: 10, cursor: 'pointer' as any },
+  
+  actionButtonGroup: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' },
+  outlineBtn: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: '#CBD5E1', paddingHorizontal: 12, paddingVertical: 8, borderRadius: 6, marginLeft: 10, cursor: 'pointer' as any },
+  outlineBtnTxt: { color: '#0F172A', fontSize: 13, fontWeight: '600', marginLeft: 6 },
+  
+  solidGoldBtn: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#EAB308', paddingHorizontal: 16, paddingVertical: 8, borderRadius: 6, marginLeft: 10, cursor: 'pointer' as any },
+  solidGoldBtnTxt: { color: '#000000', fontSize: 14, fontWeight: '700', marginLeft: 6 },
   // MARQUEE
   marqueeContainer: { backgroundColor: '#00261E', width: '100%', flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: '#004B39', overflow: 'hidden', height: 44 },
   marqueeBadge: { backgroundColor: '#B91C1C', paddingHorizontal: 20, height: '100%', justifyContent: 'center', alignItems: 'center', zIndex: 10 },
