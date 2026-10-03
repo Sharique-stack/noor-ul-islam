@@ -10,7 +10,8 @@ import {
   Platform,
   StatusBar,
   ImageBackground,
-  useWindowDimensions
+  useWindowDimensions,
+  Image
 } from 'react-native';
 import { Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
 
@@ -22,8 +23,8 @@ export default function App() {
   const isDesktop = width >= 1024;
   const isTablet = width >= 768 && width < 1024;
   
-  // Dynamic inner container width to keep content readable on ultra-wide screens
-  const contentWidth = isDesktop ? 1200 : '90%';
+ // Stretch content to the full width of the screen
+  const contentWidth = '100%';
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -31,10 +32,9 @@ export default function App() {
       
       {/* 1. EXTREME EDGE-TO-EDGE NAVIGATION (White Theme) */}
       <View style={styles.navBar}>
-        {/* Notice we removed { width: contentWidth } to allow 100% width */}
         <View style={styles.navInnerFull}>
           
-          {/* LOGO (Pushed extreme left) */}
+          {/* LOGO */}
           <View style={styles.logoGroup}>
             <View style={styles.logoBadgeWhite}>
               <MaterialCommunityIcons name="mosque" size={30} color="#166534" />
@@ -45,7 +45,7 @@ export default function App() {
             </View>
           </View>
 
-          {/* CENTER MENU (Desktop Only - Dead center) */}
+          {/* CENTER MENU */}
           {isDesktop && (
             <View style={styles.centerMenu}>
               <Text style={styles.menuItemDark}>Home</Text>
@@ -71,7 +71,7 @@ export default function App() {
             </View>
           )}
 
-          {/* RIGHT ACTION BUTTONS (Desktop Only - Pushed extreme right) */}
+          {/* RIGHT ACTION BUTTONS */}
           {isDesktop && (
             <View style={styles.actionButtonGroup}>
               <TouchableOpacity style={styles.outlineBtn}>
@@ -100,6 +100,7 @@ export default function App() {
           {!isDesktop && <Ionicons name="menu" size={32} color="#0F172A" />}
         </View>
       </View>
+
       {/* 2. FULL WIDTH MARQUEE */}
       <MarqueeBanner 
         message="🌙 MOON SIGHTING UPDATE: The crescent for Rabi' al-Thani was sighted. The new month has officially begun. Join us for weekly Ta'leem." 
@@ -109,30 +110,32 @@ export default function App() {
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         
         {/* 3. FULL BLEED HERO SECTION */}
-        <ImageBackground 
-          source={{ uri: 'https://images.unsplash.com/photo-1519817914152-2a640101b0da?q=80&w=2000&auto=format&fit=crop' }} 
-          style={styles.heroContainer}
-        >
-<View style={[styles.heroContent, { width: contentWidth }]}>
-  <Text style={styles.heroWelcome}>Bismillah ir-Rahman ir-Rahim</Text>
-  <Text style={styles.heroHeading}>Welcome to Noor ul Islam.</Text>
-  <Text style={styles.heroSubHeading}>Sharing authentic Islamic knowledge, timely moon sighting updates, and nurturing the next generation through our dedicated Maktab.</Text>
-  <View style={styles.heroActionGroup}>
-    <TouchableOpacity style={styles.primaryHeroBtn}>
-      <Text style={styles.primaryHeroBtnTxt}>View Prayer Times</Text>
-    </TouchableOpacity>
-    <TouchableOpacity style={styles.secondaryHeroBtn}>
-      <Text style={styles.secondaryHeroBtnTxt}>Enroll in Maktab</Text>
-    </TouchableOpacity>
-  </View>
-</View>
+<ImageBackground 
+  source={require('./assets/masjid-front.jpeg')} 
+  style={styles.heroContainer}
+>
+          <View style={styles.heroOverlay}>
+            <View style={[styles.heroContent, { width: contentWidth }]}>
+              <Text style={styles.heroWelcome}>Bismillah ir-Rahman ir-Rahim</Text>
+              <Text style={styles.heroHeading}>Welcome to Noor ul Islam.</Text>
+              <Text style={styles.heroSubHeading}>Sharing authentic Islamic knowledge, timely moon sighting updates, and nurturing the next generation through our dedicated Maktab.</Text>
+              <View style={styles.heroActionGroup}>
+                <TouchableOpacity style={styles.primaryHeroBtn}>
+                  <Text style={styles.primaryHeroBtnTxt}>View Prayer Times</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.secondaryHeroBtn}>
+                  <Text style={styles.secondaryHeroBtnTxt}>Enroll in Maktab</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
         </ImageBackground>
 
         {/* 4. MAIN CONTENT SECTION (White Background) */}
         <View style={styles.sectionWhite}>
           <View style={[styles.sectionInner, { width: contentWidth, flexDirection: isDesktop ? 'row' : 'column' }]}>
             
-            {/* LEFT: CALENDAR / MASJIDAL (Takes up 60% on desktop) */}
+            {/* LEFT: CALENDAR / MASJIDAL */}
             <View style={[styles.columnLeft, isDesktop && { flex: 1.5, marginRight: 40 }]}>
               <View style={styles.sectionHeader}>
                 <Text style={styles.sectionTitle}>Prayer Schedule</Text>
@@ -146,7 +149,6 @@ export default function App() {
                 </View>
               </View>
 
-              {/* MASJIDAL WIDGET ZONE */}
               <View style={styles.masjidalContainer}>
                 <MaterialCommunityIcons name="mosque" size={50} color="#004B39" opacity={0.2} style={styles.masjidalBgIcon} />
                 <Ionicons name="calendar-outline" size={32} color="#004B39" />
@@ -157,7 +159,7 @@ export default function App() {
               </View>
             </View>
 
-            {/* RIGHT: MOON SIGHTING / ANNOUNCEMENTS (Takes up 40% on desktop) */}
+            {/* RIGHT: MOON SIGHTING */}
             <View style={[styles.columnRight, isDesktop && { flex: 1 }]}>
               <View style={styles.sectionHeader}>
                 <Text style={styles.sectionTitle}>Official Updates</Text>
@@ -181,7 +183,7 @@ export default function App() {
           </View>
         </View>
 
-        {/* 5. SPIRITUAL SECTION (Deep Green Background) */}
+        {/* 5. SPIRITUAL SECTION */}
         <View style={styles.sectionDark}>
           <View style={[styles.sectionInner, { width: contentWidth }]}>
             <View style={styles.spiritualGrid}>
@@ -211,24 +213,40 @@ export default function App() {
           </View>
         </View>
 
-        {/* 6. PROGRAMS SECTION (Light Gray Background) */}
-<View style={[styles.programsGrid, isDesktop && styles.programsGridDesktop]}>
-  <ProgramCard 
-    title="Noor ul Islam Maktab" 
-    desc="Our flagship daily program teaching children Quran recitation, Tajweed, and foundational Islamic character." 
-    icon="school" 
-  />
-  <ProgramCard 
-    title="Moon Sighting & Islamic Dates" 
-    desc="Official, verified local moon sighting updates for Ramadan, Eid, and the start of every Islamic month." 
-    icon="moon" 
-  />
-  <ProgramCard 
-    title="Islamic Knowledge Hub" 
-    desc="Daily spiritual nourishment featuring carefully selected Ayats from the Quran and authentic Ahadith." 
-    icon="book-open" 
-  />
-</View>
+        {/* 5.5 OUR FACILITY */}
+        <ImageBackground 
+          source={{ uri: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1200&auto=format&fit=crop' }} 
+          style={styles.sectionFacilityBg}
+        >
+          <View style={styles.facilityOverlay}>
+            <View style={[styles.sectionInner, { width: contentWidth, alignItems: 'center' }]}>
+              
+              <View style={styles.sectionHeaderCenter}>
+                <Text style={styles.sectionTitleWhite}>Our Facility</Text>
+                <Text style={styles.sectionSubtitleWhite}>Masjid Noor Ul Islam & Cultural Center of Windsor</Text>
+              </View>
+
+              <FacilitySlider />
+
+            </View>
+          </View>
+        </ImageBackground>
+
+        {/* 6. PROGRAMS SECTION */}
+        <View style={styles.sectionGray}>
+          <View style={[styles.sectionInner, { width: contentWidth }]}>
+            <View style={styles.sectionHeaderCenter}>
+              <Text style={styles.sectionTitle}>Community Programs</Text>
+              <Text style={styles.sectionSubtitle}>Engaging all ages in education and brotherhood.</Text>
+            </View>
+            
+            <View style={[styles.programsGrid, isDesktop && styles.programsGridDesktop]}>
+              <ProgramCard title="Noor ul Islam Maktab" desc="Our flagship daily program teaching children Quran recitation, Tajweed, and foundational Islamic character." icon="school" />
+              <ProgramCard title="Moon Sighting & Islamic Dates" desc="Official, verified local moon sighting updates for Ramadan, Eid, and the start of every Islamic month." icon="moon" />
+              <ProgramCard title="Islamic Knowledge Hub" desc="Daily spiritual nourishment featuring carefully selected Ayats from the Quran and authentic Ahadith." icon="book-open" />
+            </View>
+          </View>
+        </View>
 
         {/* 7. FULL WIDTH FOOTER */}
         <View style={styles.footer}>
@@ -291,12 +309,63 @@ const MarqueeBanner = ({ message, screenWidth }: { message: string, screenWidth:
   );
 };
 
+const FacilitySlider = () => {
+  const scrollViewRef = useRef<ScrollView>(null);
+  const { width } = useWindowDimensions();
+  const isDesktop = width >= 1024;
+  
+  const slideWidth = isDesktop ? 800 : width * 0.9;
+  
+  const facilityImages = [
+    'https://images.unsplash.com/photo-1590076241088-7a561110f845?q=80&w=800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1564121211835-e88c852648ab?q=80&w=800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1604342211516-24dc1c7423e8?q=80&w=800&auto=format&fit=crop'
+  ];
+
+  const scrollLeft = () => {
+    scrollViewRef.current?.scrollTo({ x: -slideWidth, animated: true });
+  };
+
+  const scrollRight = () => {
+    scrollViewRef.current?.scrollTo({ x: slideWidth, animated: true });
+  };
+
+  return (
+    <View style={[styles.sliderContainer, { width: slideWidth }]}>
+      <ScrollView 
+        ref={scrollViewRef}
+        horizontal 
+        pagingEnabled 
+        showsHorizontalScrollIndicator={false}
+        style={styles.sliderScrollView}
+      >
+        {facilityImages.map((img, index) => (
+          <Image 
+            key={index} 
+            source={{ uri: img }} 
+            style={{ width: slideWidth, height: isDesktop ? 450 : 250, borderRadius: 12 }} 
+            resizeMode="cover"
+          />
+        ))}
+      </ScrollView>
+
+      <View style={styles.sliderControls}>
+        <TouchableOpacity style={styles.arrowButton} onPress={scrollLeft}>
+          <Text style={styles.arrowText}>❮</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.arrowButton} onPress={scrollRight}>
+          <Text style={styles.arrowText}>❯</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
 /* --- FULL SCREEN STYLES --- */
 
 const styles = StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: '#003B2F' },
   
-// NAV BAR (Extreme Edge-to-Edge)
   navBar: { backgroundColor: '#FFFFFF', width: '100%', zIndex: 100, borderBottomWidth: 1, borderBottomColor: '#E2E8F0', ...Platform.select({ web: { position: 'sticky', top: 0 } }) },
   navInnerFull: { width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 12, paddingHorizontal: 30 },
   
@@ -315,20 +384,18 @@ const styles = StyleSheet.create({
   
   solidGoldBtn: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#EAB308', paddingHorizontal: 16, paddingVertical: 8, borderRadius: 6, marginLeft: 10, cursor: 'pointer' as any },
   solidGoldBtnTxt: { color: '#000000', fontSize: 14, fontWeight: '700', marginLeft: 6 },
-  // MARQUEE
+  
   marqueeContainer: { backgroundColor: '#00261E', width: '100%', flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: '#004B39', overflow: 'hidden', height: 44 },
   marqueeBadge: { backgroundColor: '#B91C1C', paddingHorizontal: 20, height: '100%', justifyContent: 'center', alignItems: 'center', zIndex: 10 },
   marqueeBadgeTxt: { color: '#FFFFFF', fontSize: 12, fontWeight: '900', letterSpacing: 1.5 },
   marqueeInner: { flex: 1, overflow: 'hidden', justifyContent: 'center' },
   marqueeText: { color: '#E2E8F0', fontSize: 15, fontWeight: '500', letterSpacing: 0.5 },
 
-  // SCROLL CONTAINER
   scrollContent: { flexGrow: 1, alignItems: 'center' },
 
-  // HERO (Edge to Edge)
   heroContainer: { width: '100%', height: Platform.OS === 'web' ? 550 : 400, justifyContent: 'center' },
   heroOverlay: { flex: 1, backgroundColor: 'rgba(0, 38, 30, 0.75)', alignItems: 'center', justifyContent: 'center', width: '100%' },
-  heroContent: { paddingHorizontal: 20, alignItems: Platform.OS === 'web' ? 'flex-start' : 'center' },
+  heroContent: { paddingHorizontal: 40, alignItems: Platform.OS === 'web' ? 'flex-start' : 'center' },
   heroWelcome: { color: '#D4AF37', fontSize: 16, fontWeight: '700', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 15 },
   heroHeading: { color: '#FFFFFF', fontSize: Platform.OS === 'web' ? 56 : 38, fontWeight: '800', marginBottom: 20, textAlign: Platform.OS === 'web' ? 'left' : 'center' },
   heroSubHeading: { color: '#E2E8F0', fontSize: Platform.OS === 'web' ? 20 : 16, lineHeight: 28, maxWidth: 600, textAlign: Platform.OS === 'web' ? 'left' : 'center', marginBottom: 35 },
@@ -338,21 +405,29 @@ const styles = StyleSheet.create({
   secondaryHeroBtn: { backgroundColor: 'transparent', borderWidth: 2, borderColor: '#FFFFFF', paddingHorizontal: 30, paddingVertical: 14, borderRadius: 8, marginBottom: 10 },
   secondaryHeroBtnTxt: { color: '#FFFFFF', fontSize: 16, fontWeight: 'bold' },
 
-  // SECTIONS (Edge to Edge Containers)
   sectionWhite: { width: '100%', backgroundColor: '#FFFFFF', alignItems: 'center', paddingVertical: 60 },
   sectionDark: { width: '100%', backgroundColor: '#003B2F', alignItems: 'center', paddingVertical: 60 },
   sectionGray: { width: '100%', backgroundColor: '#F8FAFC', alignItems: 'center', paddingVertical: 60 },
-  sectionInner: { paddingHorizontal: 20 },
+  sectionInner: { paddingHorizontal: 40 },
   columnLeft: { marginBottom: Platform.OS === 'web' ? 0 : 40 },
   columnRight: {},
 
-  // HEADERS
   sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 25, borderBottomWidth: 2, borderBottomColor: '#F1F5F9', paddingBottom: 15 },
   sectionHeaderCenter: { alignItems: 'center', marginBottom: 40 },
   sectionTitle: { fontSize: 26, fontWeight: '800', color: '#0F172A' },
   sectionSubtitle: { fontSize: 16, color: '#64748B', marginTop: 10 },
 
-  // MASJIDAL CALENDAR
+  sectionFacilityBg: { width: '100%', marginTop: 20 },
+  facilityOverlay: { width: '100%', backgroundColor: 'rgba(0, 59, 47, 0.85)', paddingVertical: 60, alignItems: 'center' },
+  sectionTitleWhite: { fontSize: 28, fontWeight: '800', color: '#FFFFFF', marginBottom: 5 },
+  sectionSubtitleWhite: { fontSize: 16, color: '#A7F3D0', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 30 },
+  
+  sliderContainer: { position: 'relative', borderRadius: 12, overflow: 'hidden', ...Platform.select({ web: { boxShadow: '0 15px 35px rgba(0,0,0,0.3)' } }) },
+  sliderScrollView: { borderRadius: 12 },
+  sliderControls: { position: 'absolute', top: '50%', width: '100%', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 15, transform: [{ translateY: -25 }] },
+  arrowButton: { width: 50, height: 50, backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: 25, justifyContent: 'center', alignItems: 'center', ...Platform.select({ web: { cursor: 'pointer', boxShadow: '0 4px 10px rgba(0,0,0,0.2)' } }) },
+  arrowText: { fontSize: 24, fontWeight: '900', color: '#003B2F' },
+
   tabSwitcher: { flexDirection: 'row', backgroundColor: '#F1F5F9', borderRadius: 8, padding: 4 },
   tabBtn: { paddingHorizontal: 16, paddingVertical: 8, borderRadius: 6 },
   tabBtnActive: { backgroundColor: '#FFFFFF', shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 3, elevation: 2 },
@@ -363,7 +438,6 @@ const styles = StyleSheet.create({
   masjidalTitle: { fontSize: 20, fontWeight: '700', color: '#0F172A', marginTop: 15, marginBottom: 10 },
   masjidalDesc: { fontSize: 15, color: '#64748B', textAlign: 'center', lineHeight: 24, maxWidth: 400 },
 
-  // MOON SIGHTING
   announcementCard: { backgroundColor: '#FFFFFF', borderRadius: 12, padding: 30, borderWidth: 1, borderColor: '#E2E8F0', borderTopWidth: 5, borderTopColor: '#D4AF37', ...Platform.select({ web: { boxShadow: '0 10px 30px rgba(0,0,0,0.05)' } }) },
   announcementTag: { alignSelf: 'flex-start', backgroundColor: '#FEF3C7', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 6, marginBottom: 12 },
   announcementTagTxt: { color: '#B45309', fontSize: 12, fontWeight: '800', textTransform: 'uppercase', letterSpacing: 1 },
@@ -373,7 +447,6 @@ const styles = StyleSheet.create({
   readMoreBtn: { alignSelf: 'flex-start' },
   readMoreTxt: { color: '#004B39', fontSize: 15, fontWeight: '700' },
 
-  // SPIRITUAL SECTION
   spiritualGrid: { flexDirection: Platform.OS === 'web' ? 'row' : 'column', alignItems: 'center', justifyContent: 'space-between' },
   spiritualCard: { flex: 1, padding: 20, alignItems: 'center' },
   spiritualHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 25 },
@@ -384,15 +457,13 @@ const styles = StyleSheet.create({
   verticalDivider: { width: 1, height: '80%', backgroundColor: 'rgba(255,255,255,0.1)', marginHorizontal: 20 },
   horizontalDivider: { width: '80%', height: 1, backgroundColor: 'rgba(255,255,255,0.1)', marginVertical: 30 },
 
-  // PROGRAMS GRID
   programsGrid: { width: '100%', flexDirection: 'column' },
   programsGridDesktop: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' },
-  programCard: { width: Platform.OS === 'web' ? '48%' : '100%', backgroundColor: '#FFFFFF', padding: 25, borderRadius: 12, marginBottom: 20, borderWidth: 1, borderColor: '#E2E8F0', ...Platform.select({ web: { boxShadow: '0 4px 15px rgba(0,0,0,0.03)' } }) },
+  programCard: { width: Platform.OS === 'web' ? '32%' : '100%', backgroundColor: '#FFFFFF', padding: 25, borderRadius: 12, marginBottom: 20, borderWidth: 1, borderColor: '#E2E8F0', ...Platform.select({ web: { boxShadow: '0 4px 15px rgba(0,0,0,0.03)' } }) },
   programIconWrapper: { width: 50, height: 50, borderRadius: 25, backgroundColor: 'rgba(0, 75, 57, 0.08)', justifyContent: 'center', alignItems: 'center', marginBottom: 15 },
   programTitle: { fontSize: 18, fontWeight: '800', color: '#0F172A', marginBottom: 8 },
   programDesc: { fontSize: 15, color: '#64748B', lineHeight: 22 },
 
-  // FOOTER
   footer: { width: '100%', backgroundColor: '#00261E', alignItems: 'center', paddingVertical: 50 },
   footerInner: { alignItems: 'center' },
   footerBrand: { color: '#FFFFFF', fontSize: 20, fontWeight: '800', letterSpacing: 2, marginBottom: 10 },
