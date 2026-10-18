@@ -181,8 +181,8 @@ export default function App() {
         >
           <View style={styles.heroOverlay}>
             <View style={[styles.heroContent, { width: contentWidth }]}>
-              <Text style={styles.heroWelcome}>بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ\nBismillah ir-Rahman ir-Rahim</Text>
-              <Text style={styles.heroHeading}>Welcome to Noor ul Islam.</Text>
+            <Text style={styles.heroWelcome}>
+  {"بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ\nBismillah ir-Rahman ir-Rahim"}</Text>              <Text style={styles.heroHeading}>Welcome to Noor ul Islam.</Text>
               <Text style={styles.heroSubHeading}>
                 A place of worship, learning, and building a strong community. Fostering a deeper connection with Allah (SWT) in the heart of Windsor.
               </Text>
