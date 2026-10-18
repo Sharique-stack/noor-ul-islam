@@ -43,47 +43,20 @@ interface OfferingData {
   icon_name: string;
 }
 
-const DEFAULT_ANNOUNCEMENTS: AnnouncementData[] = [
-  {
-    id: 1,
-    tag: "Moon Sighting",
-    date_context: "DHU AL-HIJJAH 1447",
-    headline: "Moonsighting Update — MOON WAS SIGHTED",
-    body: "Assalamu-Alaikum.\n\nThe crescent moon to commence the month of Dhu Al-Hijjah 1447 AH was looked for after the sunset on Sunday, 17th May 2026. Reports from committees confirm that the moon was sighted.\n\nTHE HILAL COMMITTEE OF TORONTO & VICINITY has accepted these reports and has declared that the month of Dhu Al-Qa'dah 1447 AH will complete 29 days. Therefore, the 1st day of Dhu Al-Hijjah 1447 AH will be on Monday, 18th May, 2026.\n\n• 9th of Dhul Hijjah (Day of Arafah): May 26th, 2026\n• 10th Dhul Hijjah (Eid al-Adha): Wednesday, May 27th, 2026\n• Eid Celebration: Begins Wednesday, May 27th and ends Friday, May 29th, 2026.\n\nEID SALAH details announced at the Masjid.",
-    button_text: "For more information visit hilalcommittee.com →",
-    button_link: "https://hilalcommittee.com/",
-    show_in_marquee: true
-  }
-];
-
 const DEFAULT_OFFERINGS: OfferingData[] = [
   {
     id: 1,
-    title: "5 Times Daily Salah & Jumu'ah",
-    subtitle: "Congregational Prayer",
-    description: "Daily congregational prayers and Friday Jumu'ah (2:30 PM) held at Masjid Noor Ul Islam, 659 Lincoln Road.",
-    icon_name: "mosque"
-  },
-  {
-    id: 2,
-    title: "Ta'leem Program: Reading Ahadeeth After Salah",
-    subtitle: "Daily Sunnah & Hadeeth",
-    description: "The practice of reading Ahadeeth from the sayings of the Messenger of Allah (peace be upon him) takes place after each of the five daily prayers (Salah).",
+    title: "Ta’leem Program: Reading Ahadeeth After Salah",
+    subtitle: "Ta’leem Program",
+    description: "The practice of reading Ahadeeth from the sayings of the Messenger of Allah (peace be upon him) takes place after each of the five daily prayers (Salah) throughout the week. This brief session, lasting approximately five minutes, is conducted every day following each prayer. The Ahadeeth are selected from renowned collections like Riyad us-Saliheen and Munthakhab Ahadeeth.",
     icon_name: "book-open"
   },
   {
-    id: 3,
+    id: 2,
     title: "Maktab Program at Masjid Noor-ul-Islam",
-    subtitle: "Foundational Education",
-    description: "The Maktab program at Masjid Noor-ul-Islam is designed to provide children and young Muslims with foundational Islamic education in a nurturing and spiritual environment.",
+    subtitle: "Maktab",
+    description: "The Maktab program at Masjid Noor-ul-Islam is designed to provide children and young Muslims with foundational Islamic education in a nurturing and spiritual environment. Our Maktab serves as an essential platform for learning and preserving Islamic knowledge, with a focus on the Quran, basic Islamic principles, and the Sunnah of the Prophet Muhammad (peace be upon him).",
     icon_name: "graduation-cap"
-  },
-  {
-    id: 4,
-    title: "Hifz Program",
-    subtitle: "Coming Soon",
-    description: "A structured Quran memorization program supporting students in committing the entirety of the Holy Quran to heart.",
-    icon_name: "award"
   }
 ];
 
@@ -92,9 +65,9 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<'daily' | 'monthly'>('daily');
   
   const [marqueeText, setMarqueeText] = useState<string>(
-    "🌙 ANNOUNCEMENT (DHU AL-HIJJAH 1447): MOON WAS SIGHTED! 1st Dhu Al-Hijjah is Monday, May 18th. Day of Arafah is May 26th & Eid al-Adha is Wednesday, May 27th."
+    "🌙 ANNOUNCEMENTS — DHU AL-HIJJAH 1447: MOON WAS SIGHTED! 1st day of Dhu Al-Hijjah 1447 AH is Monday, 18th May, 2026. Day of Arafah is May 26th & Eid al-Adha is Wednesday, May 27th."
   );
-  const [announcements, setAnnouncements] = useState<AnnouncementData[]>(DEFAULT_ANNOUNCEMENTS);
+  const [announcements, setAnnouncements] = useState<AnnouncementData[]>([]);
   const [ayatItem, setAyatItem] = useState<SpiritualData | null>(null);
   const [hadithItem, setHadithItem] = useState<SpiritualData | null>(null);
   const [offerings, setOfferings] = useState<OfferingData[]>(DEFAULT_OFFERINGS);
@@ -155,7 +128,7 @@ export default function App() {
             </View>
             <View>
               <Text style={styles.navTitleDark}>Noor Ul Islam</Text>
-              <Text style={styles.navSubtitleDark}>Islamic Center of Windsor</Text>
+              <Text style={styles.navSubtitleDark}>Windsor</Text>
             </View>
           </TouchableOpacity>
 
@@ -164,10 +137,10 @@ export default function App() {
               <TouchableOpacity onPress={handleGoHome}>
                 <Text style={styles.menuItemDark}>Home</Text>
               </TouchableOpacity>
-              <Text style={styles.menuItemDark}>Announcements</Text>
-              <Text style={styles.menuItemDark}>Ta'leem & Maktab</Text>
               <Text style={styles.menuItemDark}>Prayer Timings</Text>
-              <Text style={styles.menuItemDark}>Contact Us</Text>
+              <Text style={styles.menuItemDark}>Our Facility</Text>
+              <Text style={styles.menuItemDark}>Announcements</Text>
+              <Text style={styles.menuItemDark}>Ta’leem & Maktab</Text>
             </View>
           )}
 
@@ -196,99 +169,64 @@ export default function App() {
         >
           <View style={styles.heroOverlay}>
             <View style={[styles.heroContent, { width: contentWidth }]}>
-              <Text style={styles.heroWelcome}>السلام عليكم و رحمة الله و بركاته</Text>
-              <Text style={styles.heroHeading}>Masjid Noor Ul Islam</Text>
+              <Text style={styles.heroWelcome}>Bismillah ir-Rahman ir-Rahim</Text>
+              <Text style={styles.heroHeading}>Welcome to Noor ul Islam.</Text>
               <Text style={styles.heroSubHeading}>
-                Madressa & Cultural Center of Windsor. A place of worship, learning, and building a strong community in the heart of Windsor, Ontario.
+                Masjid Noor Ul Islam — Madressa & Cultural Center of Windsor. A place of worship, learning, and building a strong community.
               </Text>
               <View style={styles.heroActionGroup}>
                 <TouchableOpacity style={styles.primaryHeroBtn}>
-                  <Text style={styles.primaryHeroBtnTxt}>Prayer Timings</Text>
+                  <Text style={styles.primaryHeroBtnTxt}>View Prayer Times</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.secondaryHeroBtn}>
-                  <Text style={styles.secondaryHeroBtnTxt}>Maktab Program</Text>
+                  <Text style={styles.secondaryHeroBtnTxt}>Explore Programs</Text>
                 </TouchableOpacity>
               </View>
             </View>
           </View>
         </ImageBackground>
 
-        {/* 4. CALENDAR & FULL ANNOUNCEMENTS */}
+        {/* 4. PRAYER SCHEDULE SECTION */}
         <View style={styles.sectionWhite}>
-          <View style={[styles.sectionInner, { width: contentWidth, flexDirection: isDesktop ? 'row' : 'column' }]}>
-            
-            {/* LEFT: MASJIDAL CALENDAR */}
-            <View style={[styles.columnLeft, isDesktop && { flex: 1.3, marginRight: 40 }]}>
-              <View style={styles.sectionHeader}>
-                <Text style={styles.sectionTitle}>Prayer Timings</Text>
-                <View style={styles.tabSwitcher}>
-                  <TouchableOpacity onPress={() => setActiveTab('daily')} style={[styles.tabBtn, activeTab === 'daily' && styles.tabBtnActive]}>
-                    <Text style={[styles.tabTxt, activeTab === 'daily' && styles.tabTxtActive]}>Daily</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => setActiveTab('monthly')} style={[styles.tabBtn, activeTab === 'monthly' && styles.tabBtnActive]}>
-                    <Text style={[styles.tabTxt, activeTab === 'monthly' && styles.tabTxtActive]}>Monthly</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-
-              <View style={styles.masjidalContainer}>
-                {Platform.OS === 'web' ? (
-                  <div 
-                    style={{ width: '100%', height: '100%', minHeight: 460 }}
-                    dangerouslySetInnerHTML={{ 
-                      __html: `
-                        <masjidal-widget 
-                          async 
-                          widget-id="X75jYowIfSoHRax6y0mjT" 
-                          type="prayer" 
-                          api-key="msj_pk_GbjoXFGJ3IlW7n-Ubwnvs53xnzmb0OGfkiwgyTrWnG0"> 
-                        </masjidal-widget>
-                      ` 
-                    }} 
-                  />
-                ) : (
-                  <View style={{ padding: 40, alignItems: 'center' }}>
-                    <Ionicons name="calendar-outline" size={32} color="#004B39" />
-                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#0F172A', marginTop: 10 }}>Live Prayer Times</Text>
-                  </View>
-                )}
+          <View style={[styles.sectionInner, { width: contentWidth, maxWidth: 1100 }]}>
+            <View style={styles.sectionHeader}>
+              <Text style={styles.sectionTitle}>Prayer Schedule</Text>
+              <View style={styles.tabSwitcher}>
+                <TouchableOpacity onPress={() => setActiveTab('daily')} style={[styles.tabBtn, activeTab === 'daily' && styles.tabBtnActive]}>
+                  <Text style={[styles.tabTxt, activeTab === 'daily' && styles.tabTxtActive]}>Daily</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => setActiveTab('monthly')} style={[styles.tabBtn, activeTab === 'monthly' && styles.tabBtnActive]}>
+                  <Text style={[styles.tabTxt, activeTab === 'monthly' && styles.tabTxtActive]}>Monthly</Text>
+                </TouchableOpacity>
               </View>
             </View>
 
-            {/* RIGHT: COMPLETE ANNOUNCEMENTS FROM NOORULISLAM.CA */}
-            <View style={[styles.columnRight, isDesktop && { flex: 1.2 }]}>
-              <View style={styles.sectionHeader}>
-                <Text style={styles.sectionTitle}>Announcements</Text>
-              </View>
-
-              {announcements.map((item) => (
-                <View key={item.id} style={styles.announcementCard}>
-                  <View style={styles.announcementHeaderRow}>
-                    <View style={styles.announcementTag}>
-                      <Text style={styles.announcementTagTxt}>{item.tag}</Text>
-                    </View>
-                    <Text style={styles.announcementDate}>{item.date_context}</Text>
-                  </View>
-
-                  <Text style={styles.announcementHeadline}>{item.headline}</Text>
-                  <Text style={styles.announcementBody}>{item.body}</Text>
-
-                  {item.button_text ? (
-                    <TouchableOpacity 
-                      style={styles.readMoreBtn}
-                      onPress={() => item.button_link && Linking.openURL(item.button_link)}
-                    >
-                      <Text style={styles.readMoreTxt}>{item.button_text}</Text>
-                    </TouchableOpacity>
-                  ) : null}
+            <View style={styles.masjidalContainer}>
+              {Platform.OS === 'web' ? (
+                <div 
+                  style={{ width: '100%', height: '100%', minHeight: 460 }}
+                  dangerouslySetInnerHTML={{ 
+                    __html: `
+                      <masjidal-widget 
+                        async 
+                        widget-id="X75jYowIfSoHRax6y0mjT" 
+                        type="prayer" 
+                        api-key="msj_pk_GbjoXFGJ3IlW7n-Ubwnvs53xnzmb0OGfkiwgyTrWnG0"> 
+                      </masjidal-widget>
+                    ` 
+                  }} 
+                />
+              ) : (
+                <View style={{ padding: 40, alignItems: 'center' }}>
+                  <Ionicons name="calendar-outline" size={32} color="#004B39" />
+                  <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#0F172A', marginTop: 10 }}>Live Prayer Times</Text>
                 </View>
-              ))}
+              )}
             </View>
-
           </View>
         </View>
 
-        {/* 5. DYNAMIC SPIRITUAL SECTION (AYAT & HADITH OF THE DAY) */}
+        {/* 5. SPIRITUAL SECTION (AYAT & HADITH OF THE DAY) */}
         <View style={styles.sectionDark}>
           <View style={[styles.sectionInner, { width: contentWidth }]}>
             <View style={styles.spiritualGrid}>
@@ -335,14 +273,71 @@ export default function App() {
           </View>
         </View>
 
-        {/* 6. NOOR UL ISLAM SERVICES & OFFERINGS */}
-        <View style={styles.sectionGray}>
-          <View style={[styles.sectionInner, { width: contentWidth }]}>
-            <View style={styles.sectionHeaderCenter}>
-              <Text style={styles.sectionTitle}>Our Services & Offerings</Text>
-              <Text style={styles.sectionSubtitle}>Dedicated to daily worship, Ta'leem of Ahadeeth, and Maktab education.</Text>
+        {/* 6. OUR FACILITY SLIDER */}
+        <ImageBackground 
+          source={{ uri: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1200&auto=format&fit=crop' }} 
+          style={styles.sectionFacilityBg}
+        >
+          <View style={styles.facilityOverlay}>
+            <View style={[styles.sectionInner, { width: contentWidth, alignItems: 'center' }]}>
+              <View style={styles.sectionHeaderCenter}>
+                <Text style={styles.sectionTitleWhite}>Our Facility</Text>
+                <Text style={styles.sectionSubtitleWhite}>Masjid Noor Ul Islam & Cultural Center</Text>
+              </View>
+              <FacilitySlider />
             </View>
-            
+          </View>
+        </ImageBackground>
+
+        {/* 7. ANNOUNCEMENTS SECTION (Right after Our Facility) */}
+        <View style={styles.sectionWhite}>
+          <View style={[styles.sectionInner, { width: contentWidth, maxWidth: 1000 }]}>
+            <View style={styles.announcementMainCard}>
+              <Text style={styles.announcementTopBanner}>ANNOUNCEMENTS</Text>
+              <Text style={styles.announcementHijriTitle}>DHU AL-HIJJAH 1447</Text>
+              <Text style={styles.announcementItalicSub}>Moonsighting update</Text>
+              
+              <Text style={styles.announcementGreeting}>Assalamu-Alaikum</Text>
+              
+              <View style={styles.moonSightedBadge}>
+                <Text style={styles.moonSightedBadgeText}>MOON WAS SIGHTED</Text>
+              </View>
+
+              <Text style={styles.announcementParagraph}>
+                The crescent moon to commence the month of Dhu Al-Hijjah 1447 AH was looked for after the sunset on Sunday, 17th May 2026. Reports from committees confirm that the moon was sighted.
+              </Text>
+
+              <Text style={styles.announcementCommitteeTitle}>
+                THE HILAL COMMITTEE OF TORONTO & VICINITY
+              </Text>
+
+              <Text style={styles.announcementParagraph}>
+                has accepted these reports and has declared that the month of Dhu Al-Qa’dah 1447 AH will complete 29 days. Therefore, the 1st day of Dhu Al-Hijjah 1447 AH will be on Monday, 18th May, 2026.
+              </Text>
+
+              <Text style={styles.announcementParagraph}>
+                The 9th of Dhul Hijjah (Day of Arafah) is on May 26th, and 10th Dhul Hijjah (Eid al Adha) is on May 27th. As the celebration lasts for 3 days after the day of Eid, Eid al-Adha begins on Wednesday May 27th, it will end on Friday May 29th.
+              </Text>
+
+              <TouchableOpacity 
+                style={styles.hilalLinkRow} 
+                onPress={() => Linking.openURL('https://hilalcommittee.com/')}
+              >
+                <Text style={styles.hilalLinkText}>
+                  for more information please visit <Text style={styles.hilalLinkUnderline}>https://hilalcommittee.com/</Text>
+                </Text>
+              </TouchableOpacity>
+
+              <View style={styles.eidSalahBox}>
+                <Text style={styles.eidSalahTitle}>EID SALAH</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+
+        {/* 8. TA'LEEM & MAKTAB PROGRAMS SECTION */}
+        <View style={styles.sectionGray}>
+          <View style={[styles.sectionInner, { width: contentWidth, maxWidth: 1100 }]}>
             <View style={[styles.programsGrid, isDesktop && styles.programsGridDesktop]}>
               {offerings.map((item) => (
                 <OfferingCard 
@@ -357,30 +352,14 @@ export default function App() {
           </View>
         </View>
 
-        {/* 7. OUR FACILITY SLIDER */}
-        <ImageBackground 
-          source={{ uri: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1200&auto=format&fit=crop' }} 
-          style={styles.sectionFacilityBg}
-        >
-          <View style={styles.facilityOverlay}>
-            <View style={[styles.sectionInner, { width: contentWidth, alignItems: 'center' }]}>
-              <View style={styles.sectionHeaderCenter}>
-                <Text style={styles.sectionTitleWhite}>Our Facility</Text>
-                <Text style={styles.sectionSubtitleWhite}>Masjid Noor Ul Islam — Madressa & Cultural Center of Windsor</Text>
-              </View>
-              <FacilitySlider />
-            </View>
-          </View>
-        </ImageBackground>
-
-        {/* 8. FOOTER */}
+        {/* 9. FOOTER */}
         <View style={styles.footer}>
           <View style={[styles.footerInner, { width: contentWidth }]}>
-            <Text style={styles.footerBrand}>MASJID NOOR UL ISLAM</Text>
+            <Text style={styles.footerBrand}>NOOR UL ISLAM</Text>
             <Text style={styles.footerAddress}>659 Lincoln Road, Windsor, Ontario N8Y-2G8</Text>
             <Text style={styles.footerPhone}>519-999-2561</Text>
             <View style={styles.footerLine} />
-            <Text style={styles.footerCopy}>© 2026 NOOR UL ISLAM – Islamic Center of Windsor. All Rights Reserved.</Text>
+            <Text style={styles.footerCopy}>© 2026 Islamic Center of Windsor. Built for the Community.</Text>
           </View>
         </View>
 
@@ -426,7 +405,7 @@ const MarqueeBanner = ({ message, screenWidth }: { message: string, screenWidth:
   return (
     <View style={styles.marqueeContainer}>
       <View style={styles.marqueeBadge}>
-        <Text style={styles.marqueeBadgeTxt}>ANNOUNCEMENT</Text>
+        <Text style={styles.marqueeBadgeTxt}>UPDATE</Text>
       </View>
       <View style={styles.marqueeInner}>
         <Animated.View style={{ transform: [{ translateX }], width: marqueeWidth }}>
@@ -444,11 +423,11 @@ const FacilitySlider = () => {
   const slideWidth = isDesktop ? 800 : width * 0.9;
   
   const facilityImages = [
-  require('./assets/front.jpg'),
-  require('./assets/interior.jpg'),
-  require('./assets/prayer-hall.jpg'),
-  require('./assets/prayer-hall-2.jpg'),
+    'https://images.unsplash.com/photo-1590076241088-7a561110f845?q=80&w=800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1564121211835-e88c852648ab?q=80&w=800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1604342211516-24dc1c7423e8?q=80&w=800&auto=format&fit=crop'
   ];
+
   const scrollLeft = () => { scrollViewRef.current?.scrollTo({ x: -slideWidth, animated: true }); };
   const scrollRight = () => { scrollViewRef.current?.scrollTo({ x: slideWidth, animated: true }); };
 
@@ -498,7 +477,7 @@ const styles = StyleSheet.create({
   heroContainer: { width: '100%', height: Platform.OS === 'web' ? 550 : 400, justifyContent: 'center' },
   heroOverlay: { flex: 1, backgroundColor: 'rgba(0, 38, 30, 0.75)', alignItems: 'center', justifyContent: 'center', width: '100%' },
   heroContent: { paddingHorizontal: 40, alignItems: Platform.OS === 'web' ? 'flex-start' : 'center' },
-  heroWelcome: { color: '#D4AF37', fontSize: 22, fontWeight: '700', marginBottom: 15 },
+  heroWelcome: { color: '#D4AF37', fontSize: 16, fontWeight: '700', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 15 },
   heroHeading: { color: '#FFFFFF', fontSize: Platform.OS === 'web' ? 56 : 38, fontWeight: '800', marginBottom: 20, textAlign: Platform.OS === 'web' ? 'left' : 'center' },
   heroSubHeading: { color: '#E2E8F0', fontSize: Platform.OS === 'web' ? 20 : 16, lineHeight: 28, maxWidth: 650, textAlign: Platform.OS === 'web' ? 'left' : 'center', marginBottom: 35 },
   heroActionGroup: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: Platform.OS === 'web' ? 'flex-start' : 'center' },
@@ -511,13 +490,10 @@ const styles = StyleSheet.create({
   sectionDark: { width: '100%', backgroundColor: '#003B2F', alignItems: 'center', paddingVertical: 60 },
   sectionGray: { width: '100%', backgroundColor: '#F8FAFC', alignItems: 'center', paddingVertical: 60 },
   sectionInner: { paddingHorizontal: 40 },
-  columnLeft: { marginBottom: Platform.OS === 'web' ? 0 : 40 },
-  columnRight: {},
 
   sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 25, borderBottomWidth: 2, borderBottomColor: '#F1F5F9', paddingBottom: 15 },
   sectionHeaderCenter: { alignItems: 'center', marginBottom: 40 },
   sectionTitle: { fontSize: 26, fontWeight: '800', color: '#0F172A' },
-  sectionSubtitle: { fontSize: 16, color: '#64748B', marginTop: 10, textAlign: 'center' },
 
   tabSwitcher: { flexDirection: 'row', backgroundColor: '#F1F5F9', borderRadius: 8, padding: 4 },
   tabBtn: { paddingHorizontal: 16, paddingVertical: 8, borderRadius: 6 },
@@ -525,16 +501,6 @@ const styles = StyleSheet.create({
   tabTxt: { fontSize: 14, fontWeight: '700', color: '#64748B' },
   tabTxtActive: { color: '#004B39' },
   masjidalContainer: { backgroundColor: '#FFFFFF', borderRadius: 12, width: '100%', minHeight: 460, borderWidth: 1, borderColor: '#E2E8F0', overflow: 'hidden', ...Platform.select({ web: { boxShadow: '0 4px 15px rgba(0,0,0,0.03)' } }) },
-
-  announcementCard: { backgroundColor: '#FFFFFF', borderRadius: 12, padding: 30, marginBottom: 20, borderWidth: 1, borderColor: '#E2E8F0', borderTopWidth: 5, borderTopColor: '#D4AF37', ...Platform.select({ web: { boxShadow: '0 10px 30px rgba(0,0,0,0.05)' } }) },
-  announcementHeaderRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, flexWrap: 'wrap' },
-  announcementTag: { backgroundColor: '#FEF3C7', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 6 },
-  announcementTagTxt: { color: '#B45309', fontSize: 12, fontWeight: '800', textTransform: 'uppercase', letterSpacing: 1 },
-  announcementDate: { color: '#004B39', fontSize: 14, fontWeight: '800', letterSpacing: 0.5 },
-  announcementHeadline: { fontSize: 22, fontWeight: '800', color: '#0F172A', marginBottom: 14 },
-  announcementBody: { fontSize: 15, color: '#334155', lineHeight: 25, marginBottom: 20 },
-  readMoreBtn: { alignSelf: 'flex-start', backgroundColor: '#F0FDF4', paddingHorizontal: 14, paddingVertical: 8, borderRadius: 6, borderWidth: 1, borderColor: '#BBF7D0', cursor: 'pointer' as any },
-  readMoreTxt: { color: '#166534', fontSize: 14, fontWeight: '700' },
 
   spiritualGrid: { flexDirection: Platform.OS === 'web' ? 'row' : 'column', alignItems: 'center', justifyContent: 'space-between' },
   spiritualCard: { flex: 1, padding: 20, alignItems: 'center' },
@@ -546,16 +512,7 @@ const styles = StyleSheet.create({
   verticalDivider: { width: 1, height: '80%', backgroundColor: 'rgba(255,255,255,0.1)', marginHorizontal: 20 },
   horizontalDivider: { width: '80%', height: 1, backgroundColor: 'rgba(255,255,255,0.1)', marginVertical: 30 },
 
-  programsGrid: { width: '100%', flexDirection: 'column' },
-  programsGridDesktop: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' },
-  offeringCard: { width: Platform.OS === 'web' ? '48.5%' : '100%', backgroundColor: '#FFFFFF', padding: 30, borderRadius: 12, marginBottom: 24, borderWidth: 1, borderColor: '#E2E8F0', borderTopWidth: 4, borderTopColor: '#003B2F', ...Platform.select({ web: { boxShadow: '0 8px 20px rgba(0,0,0,0.04)' } }) },
-  offeringCardTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 15 },
-  programIconWrapper: { width: 46, height: 46, borderRadius: 23, backgroundColor: 'rgba(0, 75, 57, 0.08)', justifyContent: 'center', alignItems: 'center' },
-  academySubtitleText: { color: '#D4AF37', fontSize: 13, fontWeight: '800', textTransform: 'uppercase', letterSpacing: 1 },
-  academyTitleText: { fontSize: 20, fontWeight: '800', color: '#0F172A', marginBottom: 10 },
-  academyDescText: { fontSize: 15, color: '#64748B', lineHeight: 24 },
-
-  sectionFacilityBg: { width: '100%', marginTop: 20 },
+  sectionFacilityBg: { width: '100%' },
   facilityOverlay: { width: '100%', backgroundColor: 'rgba(0, 59, 47, 0.85)', paddingVertical: 60, alignItems: 'center' },
   sectionTitleWhite: { fontSize: 28, fontWeight: '800', color: '#FFFFFF', marginBottom: 5 },
   sectionSubtitleWhite: { fontSize: 16, color: '#A7F3D0', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 30, textAlign: 'center' },
@@ -565,6 +522,121 @@ const styles = StyleSheet.create({
   sliderControls: { position: 'absolute', top: '50%', width: '100%', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 15, transform: [{ translateY: -25 }] },
   arrowButton: { width: 50, height: 50, backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: 25, justifyContent: 'center', alignItems: 'center', ...Platform.select({ web: { cursor: 'pointer', boxShadow: '0 4px 10px rgba(0,0,0,0.2)' } }) },
   arrowText: { fontSize: 24, fontWeight: '900', color: '#003B2F' },
+
+  /* ANNOUNCEMENTS AFTER FACILITY */
+  announcementMainCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 14,
+    padding: Platform.OS === 'web' ? 45 : 25,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    borderTopWidth: 6,
+    borderTopColor: '#D4AF37',
+    alignItems: 'center',
+    ...Platform.select({ web: { boxShadow: '0 12px 35px rgba(0,0,0,0.06)' } })
+  },
+  announcementTopBanner: {
+    color: '#004B39',
+    fontSize: 28,
+    fontWeight: '900',
+    letterSpacing: 2,
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  announcementHijriTitle: {
+    color: '#0F172A',
+    fontSize: 22,
+    fontWeight: '800',
+    letterSpacing: 1,
+    marginBottom: 6,
+    textAlign: 'center',
+  },
+  announcementItalicSub: {
+    color: '#475569',
+    fontSize: 18,
+    fontStyle: 'italic',
+    fontWeight: '600',
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  announcementGreeting: {
+    color: '#0F172A',
+    fontSize: 18,
+    fontWeight: '700',
+    marginBottom: 14,
+    textAlign: 'center',
+  },
+  moonSightedBadge: {
+    backgroundColor: '#FEF3C7',
+    borderWidth: 1,
+    borderColor: '#F59E0B',
+    paddingHorizontal: 22,
+    paddingVertical: 8,
+    borderRadius: 8,
+    marginBottom: 22,
+  },
+  moonSightedBadgeText: {
+    color: '#B45309',
+    fontSize: 18,
+    fontWeight: '900',
+    fontStyle: 'italic',
+    letterSpacing: 1.2,
+  },
+  announcementParagraph: {
+    color: '#334155',
+    fontSize: 16,
+    lineHeight: 27,
+    textAlign: 'center',
+    maxWidth: 780,
+    marginBottom: 18,
+  },
+  announcementCommitteeTitle: {
+    color: '#003B2F',
+    fontSize: 17,
+    fontWeight: '900',
+    letterSpacing: 0.8,
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  hilalLinkRow: {
+    marginTop: 6,
+    marginBottom: 28,
+    cursor: 'pointer' as any,
+  },
+  hilalLinkText: {
+    color: '#0F172A',
+    fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  hilalLinkUnderline: {
+    color: '#166534',
+    textDecorationLine: 'underline',
+    fontWeight: '800',
+  },
+  eidSalahBox: {
+    width: '100%',
+    borderTopWidth: 2,
+    borderTopColor: '#F1F5F9',
+    paddingTop: 22,
+    alignItems: 'center',
+  },
+  eidSalahTitle: {
+    color: '#003B2F',
+    fontSize: 22,
+    fontWeight: '900',
+    letterSpacing: 1.5,
+  },
+
+  /* TA'LEEM & MAKTAB CARDS */
+  programsGrid: { width: '100%', flexDirection: 'column' },
+  programsGridDesktop: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' },
+  offeringCard: { width: Platform.OS === 'web' ? '48.5%' : '100%', backgroundColor: '#FFFFFF', padding: 35, borderRadius: 12, marginBottom: 24, borderWidth: 1, borderColor: '#E2E8F0', borderTopWidth: 4, borderTopColor: '#003B2F', ...Platform.select({ web: { boxShadow: '0 8px 20px rgba(0,0,0,0.04)' } }) },
+  offeringCardTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 },
+  programIconWrapper: { width: 48, height: 48, borderRadius: 24, backgroundColor: 'rgba(0, 75, 57, 0.08)', justifyContent: 'center', alignItems: 'center' },
+  academySubtitleText: { color: '#D4AF37', fontSize: 14, fontWeight: '800', textTransform: 'uppercase', letterSpacing: 1 },
+  academyTitleText: { fontSize: 22, fontWeight: '800', color: '#0F172A', marginBottom: 14 },
+  academyDescText: { fontSize: 16, color: '#475569', lineHeight: 26 },
 
   footer: { width: '100%', backgroundColor: '#00261E', alignItems: 'center', paddingVertical: 50 },
   footerInner: { alignItems: 'center' },
